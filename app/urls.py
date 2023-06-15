@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
-from todo.apis import TodoViewSet
+from todo.apis import HealthCheckAPI, TodoViewSet
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', HealthCheckAPI.as_view(), name='healthcheck'),
     url(r'^todo/$', TodoViewSet.as_view({ 'get': 'list', 'post': 'create' }), name='list'),
     url(r'^todo/(?P<pk>[0-9]+)/$', TodoViewSet.as_view({ 'patch': 'partial_update', 'delete': 'destroy' }), name='snippet-detail'),
 ]
